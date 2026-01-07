@@ -1,5 +1,6 @@
+
 # TrivyProject
-testing trivy with python test module
+Testing trivy with python test module 
 
 
 1. create one EC2 with t2.small 
@@ -35,18 +36,24 @@ docker compose version
 3. install trivy by downloading teh deb file from teh below link as per the latest version 
 https://github.com/aquasecurity/trivy/releases
 
-i used this file trivy_0.67.0_Linux-64bit.deb
+I used this file trivy_0.67.0_Linux-64bit.deb
 use the command sudo dpkg -i trivy_0.67.0_Linux-64bit.deb
 
 trivy image flask-vuln-app to get report on console
+
 trivy image -f json -o flask-report.json flask-vuln-app
+
 trivy config .  -- for the docker configuration check
+
 trivy fs . -- filesystem issues like API_KEY etc...
+
 trivy image --severity CRITICAL,HIGH flask-vuln-app  for filtering the severity
 
-to get the HTML files you need to follow the below steps 
-mkdir -p contrib
-wget https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -O contrib/html.tpl
+To get the HTML files you need to follow the below steps 
+1. mkdir -p contrib
+2. wget https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -O contrib/html.tpl
+3. trivy image --format template --template "@contrib/html.tpl" -o reports/flask-report.html flask-vuln-app
+ 
 
 run the below command to get the HTML file under reports folder
 
